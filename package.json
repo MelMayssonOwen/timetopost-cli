@@ -1,0 +1,35 @@
+{
+  "name": "timetopost",
+  "version": "0.1.0",
+  "description": "Command line for TimeToPost: log in, list connected accounts, create drafts, schedule posts and approve drafts from your terminal or scripts.",
+  "type": "module",
+  "license": "MIT",
+  "homepage": "https://timetopost.co",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MelMayssonOwen/timetopost.co.git",
+    "directory": "cli"
+  },
+  "keywords": ["timetopost", "cli", "social-media", "scheduler", "drafts", "automation"],
+  "bin": {
+    "timetopost": "dist/src/bin.js"
+  },
+  "files": [
+    "dist/src",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsc",
+    "typecheck": "tsc --noEmit",
+    "test": "tsc && node --test dist/test/cli.test.js",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.41",
+    "typescript": "^5.6.0"
+  }
+}
