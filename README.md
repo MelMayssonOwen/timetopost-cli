@@ -90,4 +90,8 @@ npm run build
 npm test        # builds, then runs node:test against a local mock server
 ```
 
+Releases: bump the version in `package.json`, then push a tag `v<version>`. `.github/workflows/publish.yml` publishes to npm with provenance.
+
+Links: [timetopost.co](https://timetopost.co) . [npm](https://www.npmjs.com/package/timetopost) . [n8n node](https://github.com/MelMayssonOwen/n8n-nodes-timetopost)
+
 MIT licensed.

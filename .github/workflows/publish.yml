@@ -1,0 +1,32 @@
+name: Publish to npm
+
+# Push a tag v<version> (for example v0.1.1). The tag must match package.json.
+# Requires the NPM_TOKEN repo secret. Publishes with npm provenance.
+
+on:
+  push:
+    tags: ["v*"]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write # npm provenance
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: "lts/*"
+          registry-url: "https://registry.npmjs.org"
+          cache: npm
+      - name: Check tag matches package version
+        run: |
+          v=$(node -p "require('./package.json').version")
+          [ "${GITHUB_REF_NAME}" = "v${v}" ] || { echo "Tag ${GITHUB_REF_NAME} does not match package version ${v}"; exit 1; }
+      - run: npm ci
+      - run: npm test
+      - name: Publish to npm
+        run: npm publish --access public --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
